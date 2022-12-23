@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register page</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="login.css">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <img src="/Ex-img/login.jpg" alt="img" class="img">
+        </div>
+        <div class="row">
+            <form action="#" class="form active" name="myForm" id="login">
+                <h2>Login</h2>
+                <label for="email">Email Address</label>
+                <div class="pass-reset" onclick="activeInput(this)">
+                    <input type="email" name="email" class="email" id="emailInput" mailto:placeholder="name@mail.com">
+                </div>
+                <label for="password">Password</label>
+                <div class="pass-reset" onclick="activeInput(this)">
+                    <input type="password" class="password" name="password" id="password" placeholder="**********">
+                    <a href="#" class="reset-password">Reset Password</a>
+                </div>
+                <div class="pass-reset remember-box">
+                    <input type="checkbox" name="remember" class="remember" id="remember"><span class="remember-text">Rememeber Password</span>
+                </div>
+               <!-- <input type="button" name ="log" id= "logButton" value= " Login" onclick= "myFunction()">-->
+                 <button class="btn btn-login" onclick="saveData()">Login</button>
+                <p>Don't have an account? <a onclick="changeToRegister()" id="changeToRegister">Sign up</a></p>
+                <p class="or">or</p>
+                <button class="btn btn-gogle-auth"><i class="google ri-google-fill"></i>Authorize with Google</button>
+            </form>
+
+
+
+            <form action="#" class="form" id="register">
+                <h2>Register</h2>
+                <label for="email">Email Address</label>
+                <div class="pass-reset" onclick="activeInput(this)">
+                    <input type="email" name="emailInput" class="email" id="emailInput" mailto:placeholder="name@mail.com">
+                </div>
+                <label for="password">Password</label>
+                <div class="pass-reset" onclick="activeInput(this)">
+                    <input type="password" class="password" name="password" id="password" placeholder="**********">
+                </div>
+                <label for="re-password">Re-Password</label>
+                <div class="pass-reset" onclick="activeInput(this)">
+                    <input type="password" class="repassword" name="repassword" id="repassword" placeholder="**********">
+                </div>
+                <button class="btn btn-login" onclick=" regData()">Register</button>
+                <p>Do you have an account? <a onclick="changeToLogin()" id="chnageToLogin">Sign in</a></p>
+                <p class="or">or</p>
+                <button class="btn btn-gogle-auth"><i class="google ri-google-fill"></i>Authorize with Google</button>
+            </form>
+        </div>
+    </div>
+    <!-- JS
+    <script src="./script.js">  --> 
+
+    <script>
+
+         
+        let name=localStorage.getItem('name')?localStorage.getItem('name'):''
+        console.log(name);
+        if(name!='')
+        {
+          alert('Please visit profile');
+          window.location.href="expence.html";
+        }
+        function saveData()
+        {
+        let emailInput,password;
+        emailInput=document.getElementById("emailInput").value;
+        
+        password=document.getElementById("password").value;
+        console.log(emailInput,password);
+        
+        let user_records=new Array();
+        user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+        if(user_records.some((v)=>{return v.emailInput==emailInput && v.password==password}))
+        {
+        alert("Login Pass");
+        let current_user=user_records.filter((v)=>{return v.email==email && v.password==password})[0]
+        localStorage.setItem('name',current_user.name);
+        localStorage.setItem('emailInput',current_user.emailInput);
+        window.location.href="expence.html"
+        }
+        else
+        {
+        alert('Login Fail');
+        }
+        
+        }
+        
+
+
+        function regData()
+        {
+            let emailInput,password,repassword;
+            emailInput=document.getElementById("emailInput").value;
+            password=document.getElementById("password").value;
+            
+            repassword=document.getElementById("repassword").value;
+            console.log( emailInput,password,repassword);
+            console.log( emailInput,password,repassword);
+            let array = [{
+                email: emailInput,
+                password: password,
+                repassword: repassword,
+            }]
+            localStorage.setItem("registerdata", JSON.stringify(array));
+let user_records=new Array();
+user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+if(user_records.some((v)=>{return v.emailInput==emailInput}))
+{
+  alert("duplicate data");
+}
+else
+{
+  user_records.push({
+  "emailInput":emailInput,
+  "password":password,
+  "repassword":repassword
+})
+localStorage.setItem("users",JSON.stringify(user_records));
+}
+
+}
+
+
+
+
+
+        function changeToRegister() {
+            const changeToRegisterBtn = document.querySelector('#changeToRegister');
+            const changeToLogin = document.querySelector('#changeToLogin');
+            const loginForm = document.querySelector('#login');
+            const registerForm = document.querySelector('#register');
+            changeToRegisterBtn.addEventListener('click', () => {
+                loginForm.classList.remove('active')
+                registerForm.classList.add('active')
+            })
+        }
+        changeToRegister();
+        
+
+        
+        function changeToLogin() {
+            const changeToLoginBtn = document.querySelector('#chnageToLogin');
+            const loginForm = document.querySelector('#login');
+            const registerForm = document.querySelector('#register');
+            changeToLoginBtn.addEventListener('click', () => {
+                loginForm.classList.add('active')
+                registerForm.classList.remove('active')
+            })
+        }
+        changeToLogin();
+        
+        
+        function activeInput(event) {
+            if (screen.width > 600) {
+                let input = event;
+                input.style.border = '1px solid #4054D2';
+            }
+        }
+        activeInput()
+        
+        // function login()
+        // {
+        //     var un = document.getElementById("emailInput").value;
+        //     var pw = document.getElementById("password").value;
+        //     if (mailto:un=="student12@gmail.com" && pw=="123456")
+        //     console.log("email");
+        //     {
+        //         window.location.assign("index.html");
+        //     }
+        //     else{
+        //         alert("Invalid userName and Password");
+        //         return;
+        //     }
+        //  }
+
+
+
+    </script>
+</body>
+
+</html>

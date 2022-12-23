@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Expense Tracker </title>
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cat.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 class="title"><b>Expense Tracker</b></h1>
+
+
+        <header>
+
+            <section class="content">
+                <h1 class="secondTitle"><b>Type Category </b> </h1>
+                <div class="form">
+                    <form id="expForm" action="http://127.0.0.1:5502/Expense%20calc/expence.html">
+                        <div class="formLine left">
+                            <label for="Category">Category:</span>
+                                <input type="text" id="Category"><br><br>
+
+                        </div>
+                        <div class="formLine left">
+
+                            <label for="favcolor">Color:</label>
+                            <input type="color" id="color"><br><br>
+                        </div>
+
+                </div>
+
+
+                <button type="submit" class="buttonSave" onclick="myCategory();" id="submit">Submit</button>
+
+
+                </tbody>
+                </form>
+                </div>
+            </section>
+
+            <script>
+                // $(document).ready(function () {
+
+                //     for (let i = 0; i < localStorage.length; i++) {
+                //         var category = localStorage.getItem("Category");
+                //         $("#display_Category").text();
+                //     }
+                // });
+
+                function myCategory() {
+                    const color = document.getElementById('color').value;
+                    const cat = document.getElementById('Category').value;
+                    const categoryFromLocal = JSON.parse(localStorage.getItem("category"))
+                    // alert(categoryFromLocal)
+                    const arr =[]
+                    const obj = {color, cat};
+                    console.log(cat)
+                    if(categoryFromLocal === null){
+                        arr.push(obj);
+                        localStorage.setItem("category",JSON.stringify(arr))
+                    }
+                    arr.push(...categoryFromLocal,obj);
+                    localStorage.setItem("category",JSON.stringify(arr))
+                }
+
+                function mySubmit(){
+                    const mySubmit = JSON.parse(localStorage.getItem('submit',))||[];
+                    var newData = []
+                    myCategory.push(newCategory)
+                    localStorage.setItem("submit",JSON.stringify(myCategory));
+
+                    var newCategory1 = JSON.parse(localStorage.getItem("submit"));
+                }
+
+             
+            </script>
+</body>
+
+</html>
